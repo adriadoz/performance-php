@@ -1,0 +1,12 @@
+{
+    "name": "performance/imageloader",
+    "description": "Gestor de imágenes",
+    "require": {
+        "php": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Performance\\ImageLoader\\": "src/"
+        }
+    }
+}
