@@ -19,4 +19,14 @@ final class Image
         $this->description = $description;
         $this->tags = $tags;
     }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function getFileName()
+    {
+        return $this->file_name;
+    }
 }
