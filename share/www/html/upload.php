@@ -1,10 +1,19 @@
 <?php
+
+use Performance\ImageLoader\Infrastructure\Controller\UploadImageController;
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+require 'vendor/autoload.php';
+
 $ds= DIRECTORY_SEPARATOR;
 
 $storeFolder = 'uploads';
 
-if (!empty($_FILES)) {
 
+if (!empty($_FILES)) {
+    var_dump($_FILES);
     $tempFile = $_FILES['file']['tmp_name'];
 
     $targetPath = dirname( __FILE__ ) . $ds. $storeFolder . $ds;
@@ -13,4 +22,6 @@ if (!empty($_FILES)) {
 
     move_uploaded_file($tempFile,$targetFile);
 
+    $uploadController = new UploadImageController($_FILES);
+    $uploadController->__invoke();
 }
