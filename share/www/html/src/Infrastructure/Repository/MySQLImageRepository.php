@@ -27,10 +27,12 @@ final class MySQLImageRepository implements ImageRepository
 
     public function addImage(Image $image)
     {
+        $id = $image->getId();
         $name = $image->getName();
         $fileName = $image->getFileName();
 
-        $statement = $this->database->prepare('INSERT INTO images SET name =:name, filename =:filename');
+        $statement = $this->database->prepare('INSERT INTO images SET image_id =:id, name =:name, file_name =:filename');
+        $statement->bindParam(':id', $id, \PDO::PARAM_STR);
         $statement->bindParam(':name', $name, \PDO::PARAM_STR);
         $statement->bindParam(':filename', $fileName, \PDO::PARAM_STR);
         $statement->execute();
