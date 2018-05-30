@@ -23,6 +23,6 @@ final class ResizeM
     {
         $image = new ImageResize($this->directory . $this->fileName);
         $image->resizeToBestFit(500, 300);
-        $image->save($this->directory ."M" . $this->fileName);
+        $image->save($this->directory ."M_" . $this->fileName);
     }
 }

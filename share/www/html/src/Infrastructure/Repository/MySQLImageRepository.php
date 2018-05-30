@@ -44,4 +44,10 @@ final class MySQLImageRepository implements ImageRepository
     public function updateImage(Image $image)
     {
     }
+
+    public function getAllImages(){
+        $statement = $this->database->prepare('SELECT * FROM images');
+        $statement->execute();
+        return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

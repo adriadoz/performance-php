@@ -27,7 +27,7 @@ final class AMQPController
         $this->channel->queue_declare('resize.s', false, true, false, false);
         $this->channel->queue_declare('resize.xs', false, true, false, false);
         $this->channel->queue_declare('black.white', false, true, false, false);
-        $this->channel->queue_declare('rotate', false, true, false, false);
+        $this->channel->queue_declare('blur', false, true, false, false);
     }
 
     public function sendMessage(array $messageContent)
@@ -44,7 +44,7 @@ final class AMQPController
         $this->channel->basic_publish($message, '', 'resize.s');
         $this->channel->basic_publish($message, '', 'resize.xs');
         $this->channel->basic_publish($message, '', 'black.white');
-        $this->channel->basic_publish($message, '', 'rotate');
+        $this->channel->basic_publish($message, '', 'blur');
         $this->channel->close();
     }
 

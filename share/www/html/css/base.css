@@ -1,0 +1,16 @@
+html, body{
+    width: 100%;
+}
+main{
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+}
+a{
+    flex: 1 0 200px;
+    margin: 20px;
+    text-align: center;
+}
+img{
+    width: 100%;
+}

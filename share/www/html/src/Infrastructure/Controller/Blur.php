@@ -26,6 +26,6 @@ final class Blur
         $image->addFilter(function ($imageDesc) {
             imagefilter($imageDesc, IMG_FILTER_GAUSSIAN_BLUR);
         });
-        $image->save($this->directory ."BLUR" . $this->fileName);
+        $image->save($this->directory ."BLUR_" . $this->fileName);
     }
 }

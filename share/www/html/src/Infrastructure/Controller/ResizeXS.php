@@ -23,6 +23,6 @@ final class ResizeXS
     {
         $image = new ImageResize($this->directory . $this->fileName);
         $image->resizeToBestFit(100, 80);
-        $image->save($this->directory ."XS" . $this->fileName);
+        $image->save($this->directory ."XS_" . $this->fileName);
     }
 }

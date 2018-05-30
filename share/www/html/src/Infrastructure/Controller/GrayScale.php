@@ -26,6 +26,6 @@ final class GrayScale
         $image->addFilter(function ($imageDesc) {
             imagefilter($imageDesc, IMG_FILTER_GRAYSCALE);
         });
-        $image->save($this->directory ."GRAYSCALE" . $this->fileName);
+        $image->save($this->directory ."GRAYSCALE_" . $this->fileName);
     }
 }

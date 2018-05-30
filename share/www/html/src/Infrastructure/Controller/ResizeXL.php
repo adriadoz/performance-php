@@ -23,6 +23,6 @@ final class ResizeXL
     {
         $image = new ImageResize($this->directory . $this->fileName);
         $image->resizeToBestFit(1500, 1300);
-        $image->save($this->directory ."XL" . $this->fileName);
+        $image->save($this->directory ."XL_" . $this->fileName);
     }
 }

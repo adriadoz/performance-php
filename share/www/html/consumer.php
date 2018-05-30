@@ -29,7 +29,7 @@ $channel->queue_declare('resize.m', false, true, false, false);
 $channel->queue_declare('resize.s', false, true, false, false);
 $channel->queue_declare('resize.xs', false, true, false, false);
 $channel->queue_declare('black.white', false, true, false, false);
-$channel->queue_declare('rotate', false, true, false, false);
+$channel->queue_declare('blur', false, true, false, false);
 
 $callbackResizeXL = function($msg){
 
@@ -45,7 +45,7 @@ $callbackResizeXL = function($msg){
     $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 
     $newId = uniqid('', true);
-    $newImage = new Image($newId, $name, $fileName, '', ['XL']);
+    $newImage = new Image($newId, 'XL_'.$name, 'XL_'.$fileName, '', ['XL']);
     $imageService->__invoke($newImage);
 };
 
@@ -63,7 +63,7 @@ $callbackResizeL = function($msg){
     $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 
     $newId = uniqid('', true);
-    $newImage = new Image($newId, $name, $fileName, '', ['L']);
+    $newImage = new Image($newId, 'L_'.$name, 'L_'.$fileName, '', ['L']);
     $imageService->__invoke($newImage);
 };
 
@@ -81,7 +81,7 @@ $callbackResizeM = function($msg){
     $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 
     $newId = uniqid('', true);
-    $newImage = new Image($newId, $name, $fileName, '', ['M']);
+    $newImage = new Image($newId, 'M_'.$name, 'M_'.$fileName, '', ['M']);
     $imageService->__invoke($newImage);
 };
 $callbackResizeS = function($msg){
@@ -98,7 +98,7 @@ $callbackResizeS = function($msg){
     $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 
     $newId = uniqid('', true);
-    $newImage = new Image($newId, $name, $fileName, '', ['S']);
+    $newImage = new Image($newId, 'S_'.$name, 'S_'.$fileName, '', ['S']);
     $imageService->__invoke($newImage);
 };
 $callbackResizeXS = function($msg){
@@ -115,7 +115,7 @@ $callbackResizeXS = function($msg){
     $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 
     $newId = uniqid('', true);
-    $newImage = new Image($newId, $name, $fileName, '', ['XS']);
+    $newImage = new Image($newId, 'XS_'.$name, 'XS_'.$fileName, '', ['XS']);
     $imageService->__invoke($newImage);
 };
 
@@ -133,7 +133,7 @@ $callbackGrayScale = function($msg){
     $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 
     $newId = uniqid('', true);
-    $newImage = new Image($newId, $name, $fileName, '', ['GRAYSCALE']);
+    $newImage = new Image($newId, 'GRAYSCALE_'.$name, 'GRAYSCALE_'.$fileName, '', ['GRAYSCALE']);
     $imageService->__invoke($newImage);
 };
 
@@ -151,7 +151,7 @@ $callbackBlur = function($msg){
     $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
 
     $newId = uniqid('', true);
-    $newImage = new Image($newId, $name, $fileName, '', ['BLUR']);
+    $newImage = new Image($newId, 'BLUR_'.$name, 'BLUR_'.$fileName, '', ['BLUR']);
     $imageService->__invoke($newImage);
 };
 
@@ -163,7 +163,7 @@ $channel->basic_consume('resize.m', '', false, false, false, false, $callbackRes
 $channel->basic_consume('resize.s', '', false, false, false, false, $callbackResizeS);
 $channel->basic_consume('resize.xs', '', false, false, false, false, $callbackResizeXS);
 $channel->basic_consume('black.white', '', false, false, false, false, $callbackGrayScale);
-$channel->basic_consume('rotate', '', false, false, false, false, $callbackBlur);
+$channel->basic_consume('blur', '', false, false, false, false, $callbackBlur);
 
 while(count($channel->callbacks)) {
     $channel->wait();
