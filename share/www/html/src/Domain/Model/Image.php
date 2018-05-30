@@ -34,4 +34,9 @@ final class Image
     {
         return $this->file_name;
     }
+
+    public function getTagsString()
+    {
+        return implode(", ", $this->tags);
+    }
 }

@@ -11,6 +11,8 @@ use Performance\ImageLoader\Infrastructure\Repository\MySQLImageRepository;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use Performance\ImageLoader\Infrastructure\Controller\ResizeXL;
 use Performance\ImageLoader\Application\Service\AddImage;
+use Performance\ImageLoader\Infrastructure\Controller\GrayScale;
+use Performance\ImageLoader\Infrastructure\Controller\Blur;
 
 $connection = new AMQPStreamConnection(
     'localhost',
@@ -117,14 +119,51 @@ $callbackResizeXS = function($msg){
     $imageService->__invoke($newImage);
 };
 
+$callbackGrayScale = function($msg){
+
+    $MysqlRepo = new MySQLImageRepository();
+    $imageService = new AddImage($MysqlRepo);
+    $data = json_decode($msg->body, true);
+
+    $name = $data['name'];
+    $fileName = $data['file_name'];
+
+    $resizeXS = new GrayScale($fileName, $data['upload_directory'], $MysqlRepo);
+    $resizeXS->__invoke();
+    $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
+
+    $newId = uniqid('', true);
+    $newImage = new Image($newId, $name, $fileName, '', ['GRAYSCALE']);
+    $imageService->__invoke($newImage);
+};
+
+$callbackBlur = function($msg){
+
+    $MysqlRepo = new MySQLImageRepository();
+    $imageService = new AddImage($MysqlRepo);
+    $data = json_decode($msg->body, true);
+
+    $name = $data['name'];
+    $fileName = $data['file_name'];
+
+    $resizeXS = new Blur($fileName, $data['upload_directory'], $MysqlRepo);
+    $resizeXS->__invoke();
+    $msg->delivery_info['channel']->basic_ack($msg->delivery_info['delivery_tag']);
+
+    $newId = uniqid('', true);
+    $newImage = new Image($newId, $name, $fileName, '', ['BLUR']);
+    $imageService->__invoke($newImage);
+};
+
+
 $channel->basic_qos(null, 1, null);
 $channel->basic_consume('resize.xl', '', false, false, false, false, $callbackResizeXL);
 $channel->basic_consume('resize.l', '', false, false, false, false, $callbackResizeL);
 $channel->basic_consume('resize.m', '', false, false, false, false, $callbackResizeM);
 $channel->basic_consume('resize.s', '', false, false, false, false, $callbackResizeS);
 $channel->basic_consume('resize.xs', '', false, false, false, false, $callbackResizeXS);
-$channel->basic_consume('black.white', '', false, false, false, false, $callbackResizeXL);
-$channel->basic_consume('rotate', '', false, false, false, false, $callbackResizeXL);
+$channel->basic_consume('black.white', '', false, false, false, false, $callbackGrayScale);
+$channel->basic_consume('rotate', '', false, false, false, false, $callbackBlur);
 
 while(count($channel->callbacks)) {
     $channel->wait();
