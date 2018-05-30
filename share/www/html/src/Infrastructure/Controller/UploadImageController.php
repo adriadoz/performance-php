@@ -16,6 +16,7 @@ final class UploadImageController
     private $mysqlImageRepo;
     private $sendAMQP;
     private $amqpController;
+    private $uploadDirectory  = "uploads/";
 
     public function __construct(array $info)
     {
@@ -33,6 +34,12 @@ final class UploadImageController
         $name = $path_parts['filename'];
         $newImage = new Image($newId, $name, $_FILES['file']['name'], '', []);
         $this->addImageService->__invoke($newImage);
-        $this->sendAMQP->sendToQueue($newImage);
+
+        $message = [
+            'name' => $newImage->getName(),
+            'upload_directory' => $this->uploadDirectory,
+            'file_name' => $newImage->getFileName()
+        ];
+        $this->sendAMQP->sendToQueue($message);
     }
 }

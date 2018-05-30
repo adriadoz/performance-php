@@ -14,7 +14,7 @@ final class SendAMQP
         $this->amqpController = $amqpController;
     }
 
-    public function sendToQueue(Image $image){
-        $this->amqpController->sendMessage($image->getFileName());
+    public function sendToQueue(array $message){
+        $this->amqpController->sendMessage($message);
     }
 }
