@@ -13,7 +13,6 @@ $storeFolder = 'uploads';
 
 
 if (!empty($_FILES)) {
-    var_dump($_FILES);
     $tempFile = $_FILES['file']['tmp_name'];
 
     $targetPath = dirname( __FILE__ ) . $ds. $storeFolder . $ds;
