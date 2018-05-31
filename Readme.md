@@ -87,3 +87,25 @@ Los archivos originales se pueden encontrar en `../html/blackfire` dentro del re
 ![alt text](https://bitbucket.org/adoz/performance-adriavelardos/src/master/share/www/html/blackfire/edit_timeline.png)
 
 ### Modificaciones a partir de los resultados
+
+Tal y como nos propoone Blackfire hemos usado el comando:
+
+    composer dump-autoload --optimize
+    
+el cual ha optimizado el autoload de composer y esto se ha visto reflejado en el tiempo por página, 
+por ejemplo en el caso de `edit.php` se ha pasado de 66.7ms a 13.7ms!
+
+También se ha añadido una configuración en el `autoload` del `composer.json` para forzar que se optimize:
+
+    "config": {
+              "optimize-autoloader": true
+            }
+            
+En la siguiente captura vemos la mejora en la subida de imágenes:
+![alt text](https://bitbucket.org/adoz/performance-adriavelardos/src/master/share/www/html/blackfire/search_graph_2.png)
+
+Aquí en el Buscador de imágenes:
+![alt text](https://bitbucket.org/adoz/performance-adriavelardos/src/master/share/www/html/blackfire/index_graph_2.png)
+
+Y finalmente en la Edición de imágenes:
+![alt text](https://bitbucket.org/adoz/performance-adriavelardos/src/master/share/www/html/blackfire/edit_graph_2.png)
