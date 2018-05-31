@@ -63,3 +63,27 @@ Podremos modificar la descripción o los tags de la imágen en cuestión.
 
 
 ## Blackfire
+Para realizar las pruebas de profiler, primero hay que configurar el cliente y el servidor de blackfire con las credenciales de nuestra cuenta en `blackfire.io`
+Para ello usamos los siguientes comandos:
+
+        sudo blackfire-agent -register
+        sudo /etc/init.d/blackfire-agent restart
+        blackfire config
+        
+Para ver los resultados directamente en el explorador Chrome deberemos instalar la extension pertinente.
+
+### Capturas de pantalla de los resultados
+Los archivos originales se pueden encontrar en `../html/blackfire` dentro del repositorio 
+
+#### 1. Subida de imágenes
+![alt text](https://bitbucket.org/adoz/performance-adriavelardos/src/master/share/www/html/blackfire/search_graph.png)
+
+#### 2. Buscador de imágenes
+![alt text](https://bitbucket.org/adoz/performance-adriavelardos/src/master/share/www/html/blackfire/search_timeline.png)
+![alt text](https://bitbucket.org/adoz/performance-adriavelardos/src/master/share/www/html/blackfire/index_graph.png)
+
+#### 3. Edición de imágenes
+![alt text](https://bitbucket.org/adoz/performance-adriavelardos/src/master/share/www/html/blackfire/edit_graph.png)
+![alt text](https://bitbucket.org/adoz/performance-adriavelardos/src/master/share/www/html/blackfire/edit_timeline.png)
+
+### Modificaciones a partir de los resultados
