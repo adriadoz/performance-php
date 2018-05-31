@@ -76,15 +76,15 @@ Para ver los resultados directamente en el explorador Chrome deberemos instalar 
 Los archivos originales se pueden encontrar en `../html/blackfire` dentro del repositorio 
 
 #### 1. Subida de imágenes
-![alt text](https://bitbucket.org/adoz/performance-adriavelardos/src/master/share/www/html/blackfire/search_graph.png)
+![Scheme](share/www/html/blackfire/search_graph.png)
 
 #### 2. Buscador de imágenes
-![alt text](https://bitbucket.org/adoz/performance-adriavelardos/src/master/share/www/html/blackfire/search_timeline.png)
-![alt text](https://bitbucket.org/adoz/performance-adriavelardos/src/master/share/www/html/blackfire/index_graph.png)
+![Scheme](share/www/html/blackfire/search_timeline.png)
+![Scheme](share/www/html/blackfire/index_graph.png)
 
 #### 3. Edición de imágenes
-![alt text](https://bitbucket.org/adoz/performance-adriavelardos/src/master/share/www/html/blackfire/edit_graph.png)
-![alt text](https://bitbucket.org/adoz/performance-adriavelardos/src/master/share/www/html/blackfire/edit_timeline.png)
+![Scheme](share/www/html/blackfire/edit_graph.png)
+![Scheme](share/www/html/blackfire/edit_timeline.png)
 
 ### Modificaciones a partir de los resultados
 
@@ -102,10 +102,10 @@ También se ha añadido una configuración en el `autoload` del `composer.json` 
             }
             
 En la siguiente captura vemos la mejora en la subida de imágenes:
-![alt text](https://bitbucket.org/adoz/performance-adriavelardos/src/master/share/www/html/blackfire/search_graph_2.png)
+![Scheme](share/www/html/blackfire/search_graph_2.png)
 
 Aquí en el Buscador de imágenes:
-![alt text](https://bitbucket.org/adoz/performance-adriavelardos/src/master/share/www/html/blackfire/index_graph_2.png)
+![Scheme](share/www/html/blackfire/index_graph_2.png)
 
 Y finalmente en la Edición de imágenes:
-![alt text](https://bitbucket.org/adoz/performance-adriavelardos/src/master/share/www/html/blackfire/edit_graph_2.png)
+![Scheme](share/www/html/blackfire/edit_graph_2.png)
