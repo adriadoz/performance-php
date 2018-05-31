@@ -46,7 +46,7 @@ final class RedisImageRepository implements ImageRepository
 
         foreach ($keys as $key) {
             $redisImage = $this->client->hgetall($key);
-          
+
             if(!isset($redisImage['tags'])){
                 $tagsArray = [];
             }
