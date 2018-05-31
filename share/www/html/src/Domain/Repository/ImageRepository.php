@@ -9,5 +9,6 @@ use Performance\ImageLoader\Domain\Model\Image;
 interface ImageRepository
 {
     public function addImage(Image $image);
-    public function updateImage(Image $image);
+    public function editImage(Image $image);
+    public function getImageById($id);
 }

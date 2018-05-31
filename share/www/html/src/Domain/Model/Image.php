@@ -44,4 +44,9 @@ final class Image
     {
         return $this->description;
     }
+
+    public function getTags():array
+    {
+        return $this->tags;
+    }
 }

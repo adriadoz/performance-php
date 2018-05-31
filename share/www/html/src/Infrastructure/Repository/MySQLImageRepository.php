@@ -41,13 +41,29 @@ final class MySQLImageRepository implements ImageRepository
         $statement->execute();
     }
 
-    public function updateImage(Image $image)
+    public function editImage(Image $image)
     {
+        $id = $image->getId();
+        $description = $image->getDescription();
+        $tags = $image->getTagsString();
+
+        $statement = $this->database->prepare('UPDATE images SET description =:description, tags =:tags WHERE image_id =:id');
+        $statement->bindParam(':id', $id, \PDO::PARAM_STR);
+        $statement->bindParam(':description', $description, \PDO::PARAM_STR);
+        $statement->bindParam(':tags', $tags, \PDO::PARAM_STR);
+        $statement->execute();
     }
 
     public function getAllImages(){
         $statement = $this->database->prepare('SELECT * FROM images');
         $statement->execute();
         return $statement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getImageById($id){
+        $statement = $this->database->prepare('SELECT * FROM images WHERE image_id =:id');
+        $statement->bindParam(':id', $id, \PDO::PARAM_STR);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_ASSOC);
     }
 }

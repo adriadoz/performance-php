@@ -26,16 +26,30 @@ final class ElasticImageRepository implements ImageRepository
                 'image_name' => $image->getName(),
                 'file_name' => $image->getFileName(),
                 'description' => $image->getDescription(),
-                'tags' => $image->getTagsString()
+                'tags' => $image->getTags()
             ]
         ];
 
         $this->client->index($params);
     }
 
-    public function updateImage(Image $image)
+    public function editImage(Image $image)
     {
+        $params = [
+            'index' => 'images',
+            'type' => 'img',
+            'id' => $image->getId(),
+            'body' => [
+                'doc' => [
+                    'image_name' => $image->getName(),
+                    'file_name' => $image->getFileName(),
+                    'description' => $image->getDescription(),
+                    'tags' => $image->getTags()
+                ]
+            ]
+        ];
 
+        $this->client->update($params);
     }
 
     public function searchImages(string $tagsToSearch)
@@ -62,7 +76,11 @@ final class ElasticImageRepository implements ImageRepository
             $name = $image['_source']['image_name'];
             $fileName = $image['_source']['file_name'];
             $description = $image['_source']['description'];
-            $tags = explode (', ',$image['_source']['tags']);
+            if(is_string ($image['_source']['tags'])){
+                $tags = explode (', ',$image['_source']['tags']);
+            }else{
+                $tags = $image['_source']['tags'];
+            }
             $foundImage = new Image($id, $name, $fileName, $description, $tags);
             $arrayImage = [
                 'name' => $foundImage->getName(),
@@ -73,5 +91,9 @@ final class ElasticImageRepository implements ImageRepository
         }
 
         return $foundImages;
+    }
+
+    public function getImageById($id)
+    {
     }
 }
