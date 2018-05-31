@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 use Performance\ImageLoader\Infrastructure\Controller\UploadImageController;
 
 require_once 'vendor/autoload.php';

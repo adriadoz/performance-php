@@ -7,9 +7,11 @@ use Performance\ImageLoader\Application\Service\EditImage;
 use Performance\ImageLoader\Infrastructure\Repository\MySQLImageRepository;
 use Performance\ImageLoader\Domain\Model\Image;
 use Performance\ImageLoader\Infrastructure\Repository\ElasticImageRepository;
+use Performance\ImageLoader\Infrastructure\Repository\RedisImageRepository;
 
 $mysqlRepo = new MySQLImageRepository();
 $elasticRepo = new ElasticImageRepository();
+$redisRepo = new RedisImageRepository();
 
 if (isset($_POST['description']) && ($_POST['description'] !== '' || $_POST['tags'] !== '')) {
 
@@ -22,8 +24,10 @@ if (isset($_POST['description']) && ($_POST['description'] !== '' || $_POST['tag
     $editedImage = new Image($imageId, $name, $fileName, $description, $tagsArray);
     $editImageService = new EditImage($mysqlRepo);
     $editImageServiceElastic = new EditImage($elasticRepo);
+    $editImageServiceRedis = new EditImage($redisRepo);
     $editImageService->__invoke($editedImage);
     $editImageServiceElastic->__invoke($editedImage);
+    $editImageServiceRedis->__invoke($editedImage);
 }else{
     $imageId= $_GET['id'];
 }

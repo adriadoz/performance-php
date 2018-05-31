@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 require_once 'vendor/autoload.php';
 
 use Performance\ImageLoader\Infrastructure\Controller\AllImagesController;
@@ -11,7 +13,7 @@ if (isset($_POST['search']) && $_POST['searchInput'] !== '') {
     $images = $elasticImageRepo->searchImages($searchInput);
 } else {
     $allImagesController = new AllImagesController();
-    $images              = $allImagesController->__invoke();
+    $images = $allImagesController->__invoke();
 }
 ?>
 <html>
