@@ -1,12 +1,9 @@
 <?php
 
+require_once 'vendor/autoload.php';
+
 use Performance\ImageLoader\Infrastructure\Controller\AllImagesController;
 use Performance\ImageLoader\Infrastructure\Repository\ElasticImageRepository;
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-require 'vendor/autoload.php';
 
 if (isset($_POST['search']) && $_POST['searchInput'] !== '') {
     $searchInput = $_POST['searchInput'];

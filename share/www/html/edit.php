@@ -1,9 +1,6 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-require 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
 use Performance\ImageLoader\Application\Service\GetImage;
 use Performance\ImageLoader\Application\Service\EditImage;

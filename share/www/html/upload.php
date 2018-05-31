@@ -2,10 +2,7 @@
 
 use Performance\ImageLoader\Infrastructure\Controller\UploadImageController;
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
-require 'vendor/autoload.php';
+require_once 'vendor/autoload.php';
 
 $ds= DIRECTORY_SEPARATOR;
 
