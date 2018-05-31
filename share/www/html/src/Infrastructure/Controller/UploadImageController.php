@@ -7,6 +7,7 @@ use Performance\ImageLoader\Application\Service\AddImage;
 use Performance\ImageLoader\Application\Service\SendAMQP;
 use Performance\ImageLoader\Domain\Model\Image;
 use Performance\ImageLoader\Infrastructure\Queue\AMQPController;
+use Performance\ImageLoader\Infrastructure\Repository\ElasticImageRepository;
 use Performance\ImageLoader\Infrastructure\Repository\MySQLImageRepository;
 
 final class UploadImageController
@@ -16,13 +17,17 @@ final class UploadImageController
     private $mysqlImageRepo;
     private $sendAMQP;
     private $amqpController;
+    private $addImageServiceElastic;
+    private $elasticImageRepo;
     private $uploadDirectory  = "uploads/";
 
     public function __construct(array $info)
     {
         $this->info = $info;
         $this->mysqlImageRepo = new MySQLImageRepository();
+        $this->elasticImageRepo = new ElasticImageRepository();
         $this->addImageService = new AddImage($this->mysqlImageRepo);
+        $this->addImageServiceElastic = new AddImage($this->elasticImageRepo);
         $this->amqpController = new AMQPController();
         $this->sendAMQP = new SendAMQP($this->amqpController);
     }
@@ -34,7 +39,7 @@ final class UploadImageController
         $name = $path_parts['filename'];
         $newImage = new Image($newId, $name, $_FILES['file']['name'], '', []);
         $this->addImageService->__invoke($newImage);
-
+        $this->addImageServiceElastic->__invoke($newImage);
         $message = [
             'name' => $newImage->getName(),
             'upload_directory' => $this->uploadDirectory,

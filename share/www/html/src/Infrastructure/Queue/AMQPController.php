@@ -36,8 +36,6 @@ final class AMQPController
             json_encode($messageContent),
             ['delivery_mode' => AMQPMessage::DELIVERY_MODE_PERSISTENT]
         );
-        var_dump($message);
-
         $this->channel->basic_publish($message, '', 'resize.xl');
         $this->channel->basic_publish($message, '', 'resize.l');
         $this->channel->basic_publish($message, '', 'resize.m');

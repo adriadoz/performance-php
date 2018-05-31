@@ -1,5 +1,8 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once 'vendor/autoload.php';
 
 use Performance\ImageLoader\Domain\Model\Image;
@@ -7,6 +10,7 @@ use Performance\ImageLoader\Infrastructure\Controller\ResizeL;
 use Performance\ImageLoader\Infrastructure\Controller\ResizeM;
 use Performance\ImageLoader\Infrastructure\Controller\ResizeS;
 use Performance\ImageLoader\Infrastructure\Controller\ResizeXS;
+use Performance\ImageLoader\Infrastructure\Repository\ElasticImageRepository;
 use Performance\ImageLoader\Infrastructure\Repository\MySQLImageRepository;
 use PhpAmqpLib\Connection\AMQPStreamConnection;
 use Performance\ImageLoader\Infrastructure\Controller\ResizeXL;
@@ -32,7 +36,8 @@ $channel->queue_declare('black.white', false, true, false, false);
 $channel->queue_declare('blur', false, true, false, false);
 
 $callbackResizeXL = function($msg){
-
+    $elasticImageRepo = new ElasticImageRepository();
+    $addImageServiceElastic = new AddImage($elasticImageRepo);
     $MysqlRepo = new MySQLImageRepository();
     $imageService = new AddImage($MysqlRepo);
     $data = json_decode($msg->body, true);
@@ -47,10 +52,13 @@ $callbackResizeXL = function($msg){
     $newId = uniqid('', true);
     $newImage = new Image($newId, 'XL_'.$name, 'XL_'.$fileName, '', ['XL']);
     $imageService->__invoke($newImage);
+    $addImageServiceElastic->__invoke($newImage);
 };
 
 $callbackResizeL = function($msg){
 
+    $elasticImageRepo = new ElasticImageRepository();
+    $addImageServiceElastic = new AddImage($elasticImageRepo);
     $MysqlRepo = new MySQLImageRepository();
     $imageService = new AddImage($MysqlRepo);
     $data = json_decode($msg->body, true);
@@ -65,10 +73,13 @@ $callbackResizeL = function($msg){
     $newId = uniqid('', true);
     $newImage = new Image($newId, 'L_'.$name, 'L_'.$fileName, '', ['L']);
     $imageService->__invoke($newImage);
+    $addImageServiceElastic->__invoke($newImage);
 };
 
 $callbackResizeM = function($msg){
 
+    $elasticImageRepo = new ElasticImageRepository();
+    $addImageServiceElastic = new AddImage($elasticImageRepo);
     $MysqlRepo = new MySQLImageRepository();
     $imageService = new AddImage($MysqlRepo);
     $data = json_decode($msg->body, true);
@@ -83,9 +94,12 @@ $callbackResizeM = function($msg){
     $newId = uniqid('', true);
     $newImage = new Image($newId, 'M_'.$name, 'M_'.$fileName, '', ['M']);
     $imageService->__invoke($newImage);
+    $addImageServiceElastic->__invoke($newImage);
 };
 $callbackResizeS = function($msg){
 
+    $elasticImageRepo = new ElasticImageRepository();
+    $addImageServiceElastic = new AddImage($elasticImageRepo);
     $MysqlRepo = new MySQLImageRepository();
     $imageService = new AddImage($MysqlRepo);
     $data = json_decode($msg->body, true);
@@ -100,9 +114,12 @@ $callbackResizeS = function($msg){
     $newId = uniqid('', true);
     $newImage = new Image($newId, 'S_'.$name, 'S_'.$fileName, '', ['S']);
     $imageService->__invoke($newImage);
+    $addImageServiceElastic->__invoke($newImage);
 };
 $callbackResizeXS = function($msg){
 
+    $elasticImageRepo = new ElasticImageRepository();
+    $addImageServiceElastic = new AddImage($elasticImageRepo);
     $MysqlRepo = new MySQLImageRepository();
     $imageService = new AddImage($MysqlRepo);
     $data = json_decode($msg->body, true);
@@ -117,10 +134,13 @@ $callbackResizeXS = function($msg){
     $newId = uniqid('', true);
     $newImage = new Image($newId, 'XS_'.$name, 'XS_'.$fileName, '', ['XS']);
     $imageService->__invoke($newImage);
+    $addImageServiceElastic->__invoke($newImage);
 };
 
 $callbackGrayScale = function($msg){
 
+    $elasticImageRepo = new ElasticImageRepository();
+    $addImageServiceElastic = new AddImage($elasticImageRepo);
     $MysqlRepo = new MySQLImageRepository();
     $imageService = new AddImage($MysqlRepo);
     $data = json_decode($msg->body, true);
@@ -135,10 +155,13 @@ $callbackGrayScale = function($msg){
     $newId = uniqid('', true);
     $newImage = new Image($newId, 'GRAYSCALE_'.$name, 'GRAYSCALE_'.$fileName, '', ['GRAYSCALE']);
     $imageService->__invoke($newImage);
+    $addImageServiceElastic->__invoke($newImage);
 };
 
 $callbackBlur = function($msg){
 
+    $elasticImageRepo = new ElasticImageRepository();
+    $addImageServiceElastic = new AddImage($elasticImageRepo);
     $MysqlRepo = new MySQLImageRepository();
     $imageService = new AddImage($MysqlRepo);
     $data = json_decode($msg->body, true);
@@ -153,6 +176,7 @@ $callbackBlur = function($msg){
     $newId = uniqid('', true);
     $newImage = new Image($newId, 'BLUR_'.$name, 'BLUR_'.$fileName, '', ['BLUR']);
     $imageService->__invoke($newImage);
+    $addImageServiceElastic->__invoke($newImage);
 };
 
 

@@ -39,4 +39,9 @@ final class Image
     {
         return implode(", ", $this->tags);
     }
+
+    public function getDescription()
+    {
+        return $this->description;
+    }
 }
