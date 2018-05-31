@@ -36,6 +36,12 @@ Antes de usar la aplicación deberemos setear nuestra base de datos ejecutando e
         
 Este creará nuestra base de datos y seteará las tablas necesarias.
 
+## Arrancar los suscriptores de las colas
+
+Es important arrancar desde la consola los suscritores antes de usar la aplicación. Por ello ejecutaremos el siguiente código situándonos en la carpeta `html` del proyecto:
+    
+    php consumer.php
+
 ## Uso de la Aplicación
 
 ### 1. Subida de imágenes
